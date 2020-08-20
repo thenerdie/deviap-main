@@ -1,15 +1,15 @@
 -- Copyright 2020- Teverse
 -- This script constructs (or builds) the modal views
 
-local globals = require("tevgit:workshop/library/globals.lua") -- globals; variables or instances that can be shared between files
+local globals = require("devgit:workshop/library/globals.lua") -- globals; variables or instances that can be shared between files
 
 return {
     construct = function(size, pos)
         local data = {} 
         self = data
 
-        local container = teverse.construct("guiFrame", {
-            parent = teverse.interface,
+        local container = core.construct("guiFrame", {
+            parent = core.interface,
             name = "_container",
             size = size,
             position = pos,

@@ -9,7 +9,7 @@ local new = function(properties)
 		@return
 			table, interface
 	]]
-	local viewScroll = teverse.construct("guiScrollView", properties or {})
+	local viewScroll = core.construct("guiScrollView", properties or {})
 
 	local list = {}
 	local interface = {}
@@ -38,7 +38,7 @@ local new = function(properties)
 			location = MAX_LIST
 		end
 
-		list[location] = teverse.construct("guiTextBox", {
+		list[location] = core.construct("guiTextBox", {
 			parent = viewScroll;
 			text = text;
 			textWrap = true;
@@ -78,7 +78,7 @@ local new = function(properties)
 				Clears the logs
 		]]
 		list = {}
-		teverse.debug:clearOutputHistory()
+		core.debug:clearOutputHistory()
 		viewScroll:destroyChildren()
 		interface.reload()
 		viewScroll.canvasOffset = vector2()

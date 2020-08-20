@@ -14,13 +14,13 @@ local clamp = function(x, min, max)
 end
 
 --UI elements
-local container = teverse.construct("guiScrollView", {
+local container = core.construct("guiScrollView", {
 	scrollbarAlpha = 0;
 	scrollbarWidth = 0;
 	canvasSize = guiCoord(1, 0, 1, 0);
 })
 
-local textBox = teverse.construct("guiTextBox", {
+local textBox = core.construct("guiTextBox", {
 	parent = container;
 	size = container.canvasSize + guiCoord(0, container.absoluteSize.x, 0, 0);
 	backgroundColour = colour(0.9, 0.9, 0.9);

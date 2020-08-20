@@ -1,9 +1,9 @@
 -- Copyright 2020- Teverse
 -- This script is required when workshop is loaded.
 
-local globals = require("tevgit:workshop/library/globals.lua") -- globals; variables or instances that can be shared between files
-local environmentPresets = require("tevgit:workshop/library/environment/presets.lua") -- 3D environment presets (or defaults)
-local camera = require("tevgit:core/3d/camera.lua") -- 3D Camera for 3D Environment
+local globals = require("devgit:workshop/library/globals.lua") -- globals; variables or instances that can be shared between files
+local environmentPresets = require("devgit:workshop/library/environment/presets.lua") -- 3D environment presets (or defaults)
+local camera = require("devgit:core/3d/camera.lua") -- 3D Camera for 3D Environment
 
 local function init(dev)
     --[[
@@ -18,17 +18,17 @@ local function init(dev)
     ]]--
 
     globals.dev = dev -- Set teverse.dev (previously workshop) instance as a global
-    globals.user = teverse.networking.localClient -- Set & Streamline user instance as a global
-    globals.developerMode = not globals.dev.localTevGit -- Set developmode boolean as a global
+    globals.user = core.networking.localClient -- Set & Streamline user instance as a global
+    globals.developerMode = not globals.dev.localdevgit -- Set developmode boolean as a global
 
-    local loadingScreen = teverse.construct("guiFrame", {
+    local loadingScreen = core.construct("guiFrame", {
         parent = dev.interface,
         size = guiCoord(1, 0, 1, 0),
         backgroundColour = globals.defaultColours.background,
         zIndex = 1000
     })
 
-    teverse.construct("guiTextBox", {
+    core.construct("guiTextBox", {
         parent = loadingScreen,
         size = guiCoord(0.5, 0, 0.5, 0),
         position = guiCoord(0.25, 0, 0.25, 0),
@@ -38,7 +38,7 @@ local function init(dev)
     })
 
     -- Load stuff before initial load in
-    require("tevgit:workshop/library/ui/controllers/workshopInterface.lua")
+    require("devgit:workshop/library/ui/controllers/workshopInterface.lua")
 
     -- Loading is no longer needed by this phase, remove if still valid
     if loadingScreen then
@@ -60,14 +60,14 @@ return function(dev)
         @Returns
             function, method
     ]]--
-    dev = teverse.dev
+    dev = core.dev
     local success, message = pcall(init, dev)
 
     -- If initialize phase fails, prompt to the error screen
     if (not success) then
-        teverse.interface:destroyChildren()
+        core.interface:destroyChildren()
 
-        local errorScreen = teverse.construct("guiFrame", {
+        local errorScreen = core.construct("guiFrame", {
             parent = dev.interface,
             size = guiCoord(1, 0, 1, 0),
             backgroundColour = globals.defaultColours.background,
@@ -75,7 +75,7 @@ return function(dev)
             zIndex = 10000
         })
 
-        teverse.construct("guiTextBox", {
+        core.construct("guiTextBox", {
             parent = errorScreen,
             size = guiCoord(0.8, 0, 0.8, 0),
             position = guiCoord(0.1, 0, 0.1, 0),
@@ -89,17 +89,17 @@ return function(dev)
         })
 
         -- Bind the "return" key on the keyboard as temporary fast-reload keybind
-        teverse.input:on("keyDown", function(key)
+        core.input:on("keyDown", function(key)
             if key == "KEY_RETURN" then
-                teverse.apps:loadWorkshop()
+                core.apps:loadWorkshop()
             end
         end)
     end
 
     -- Bind the "f12" key on the keyboard as fast-reload keybind if initialize phase is successful
-    teverse.input:on("keyDown", function(key)
+    core.input:on("keyDown", function(key)
         if key == "KEY_F12" then
-            teverse.apps:loadWorkshop()
+            core.apps:loadWorkshop()
         end
     end)
 end

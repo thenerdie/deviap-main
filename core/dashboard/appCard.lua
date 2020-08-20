@@ -1,13 +1,13 @@
 return function(app)
-    local appGui = teverse.construct("guiFrame", {
+    local appGui = core.construct("guiFrame", {
         strokeRadius = 2,
         dropShadowAlpha = 0.15,
         strokeAlpha = 0.05
     })
 
-    teverse.guiHelper.hoverColour(appGui, colour.rgb(247, 247, 247))
+    core.guiHelper.hoverColour(appGui, colour.rgb(247, 247, 247))
 
-    teverse.construct("guiTextBox", {
+    core.construct("guiTextBox", {
         parent = appGui,
         size = guiCoord(1.0, -20, 0, 22),
         position = guiCoord(0, 10, 0, 5),
@@ -19,7 +19,7 @@ return function(app)
         active = false
     })
 
-    teverse.construct("guiTextBox", {
+    core.construct("guiTextBox", {
         parent = appGui,
         size = guiCoord(1.0, -20, 0, 16),
         position = guiCoord(0, 10, 0, 24),
@@ -30,14 +30,14 @@ return function(app)
         active = false
     })
 
-    local img = teverse.construct("guiImage", {
+    local img = core.construct("guiImage", {
         size = guiCoord(1, 0, 1, 0),
         parent = appGui,
         active = false, 
         zIndex = -1
     })
 
-    local launch = teverse.construct("guiTextBox", {
+    local launch = core.construct("guiTextBox", {
         parent = appGui,
         size = guiCoord(0, 80, 0, 24),
         position = guiCoord(1, -90, 1, -34),

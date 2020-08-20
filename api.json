@@ -1149,10 +1149,10 @@
                     "returns": [],
                     "description": "Reloads all shaders."
                 },
-                "promptTevGit": {
+                "promptDevGit": {
                     "parameters": [],
                     "returns": [],
-                    "description": "Prompts the user to select a directory for tevgit."
+                    "description": "Prompts the user to select a directory for devgit."
                 }
             },
             "className": "dev",
@@ -1171,10 +1171,10 @@
                     "description": "Mostly for internal use, represents what the user is currently doing.",
                     "hasSetter": true
                 },
-                "localTevGit": {
+                "localDevGit": {
                     "hasGetter": true,
                     "type": "string",
-                    "description": "Returns path to local tevgit",
+                    "description": "Returns path to local devgit",
                     "hasSetter": false
                 }
             }

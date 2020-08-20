@@ -1,19 +1,19 @@
 local controller = {}
 
 controller.setup = function()
-    local navBar = teverse.construct("guiFrame", {
+    local navBar = core.construct("guiFrame", {
         strokeAlpha = 0.1,
-        parent = teverse.interface,
+        parent = core.interface,
         zIndex = 10,
         backgroundColour = colour.rgb(52, 58, 64)
     })
 
-    local navContainer = teverse.construct("guiFrame", {
+    local navContainer = core.construct("guiFrame", {
         parent = navBar,
         backgroundAlpha = 0
     })
 
-    teverse.guiHelper
+    core.guiHelper
         .gridConstraint(navContainer, {
             cellSize = guiCoord(0, 40, 0, 40),
             cellMargin = guiCoord(0, 25, 0, 25)
@@ -35,22 +35,22 @@ controller.setup = function()
             size = guiCoord(0, 40, 1, -80)
         })
 
-    local profilePictureContainer = teverse.construct("guiFrame", {
+    local profilePictureContainer = core.construct("guiFrame", {
         parent = navContainer,
         backgroundAlpha = 0,
         name = "0"
     })
 
-    local profilePicture = teverse.construct("guiImage", {
+    local profilePicture = core.construct("guiImage", {
         size = guiCoord(0, 30, 0, 30),
         position = guiCoord(0.5, -15, 0.5, -15),
-        image = "tevurl:asset/user/" .. teverse.networking.localClient.id,
+        image = "tevurl:asset/user/" .. core.networking.localClient.id,
         parent = profilePictureContainer,
         strokeRadius = 30,
         name = "0"
     })
     
-    local status = teverse.construct("guiImage", {
+    local status = core.construct("guiImage", {
         size = guiCoord(0, 8, 0, 8),
         position = guiCoord(1, -8, 1, -8),
         backgroundColour = colour(0, 0.9, 0),
@@ -61,14 +61,14 @@ controller.setup = function()
         parent = profilePicture
     })
     
-    local body = teverse.construct("guiFrame", {
+    local body = core.construct("guiFrame", {
         size = guiCoord(1, -65, 1, 0),
         position = guiCoord(0, 65, 0, 0),
-        parent = teverse.interface,
+        parent = core.interface,
         backgroundColour = colour.rgb(242, 244, 245)
     })
 
-    teverse.guiHelper
+    core.guiHelper
         .bind(body, "xs", {
             size = guiCoord(1, 90, 1, -5),
             position = guiCoord(0, -45, 0, -60)
@@ -81,7 +81,7 @@ controller.setup = function()
     local pages = {}
 
     local function setupPage(page)
-        local container = teverse.construct(page.scrollView and "guiScrollView" or "guiFrame", {
+        local container = core.construct(page.scrollView and "guiScrollView" or "guiFrame", {
             parent = body,
             size = guiCoord(1, -40, 1, -80),
             position = guiCoord(0, 10, 0, 80),
@@ -95,7 +95,7 @@ controller.setup = function()
             container.active = true
         end
 
-        teverse.guiHelper
+        core.guiHelper
             .bind(container, "xs", {
                 size = guiCoord(1, -120, 1, -80),
                 position = guiCoord(0, 60, 0, 80)
@@ -105,7 +105,7 @@ controller.setup = function()
                 position = guiCoord(0, 0, 0, 10)
             })
 
-        local icon = teverse.construct("guiIcon", {
+        local icon = core.construct("guiIcon", {
             name = tostring(#pages + 1),
             size = guiCoord(0, 40, 0, 40),
             position = guiCoord(0.5, -20, 1, -60),
@@ -153,16 +153,16 @@ controller.setup = function()
 
         table.insert(pages, {container, icon})
     end
-    setupPage(require("tevgit:core/dashboard/pages/home.lua"))
+    setupPage(require("devgit:core/dashboard/pages/home.lua"))
 
     if not (_TEV_VERSION_MINOR == 21 and _TEV_VERSION_PATCH == 0) then
-        setupPage(require("tevgit:core/dashboard/pages/apps.lua"))
+        setupPage(require("devgit:core/dashboard/pages/apps.lua"))
 
         if _DEVICE:sub(0, 6) ~= "iPhone" then
             if _DEVICE:sub(0, 4) == "iPad" then
-                --setupPage(require("tevgit:core/dashboard/pages/developTablet.lua"))
+                --setupPage(require("devgit:core/dashboard/pages/developTablet.lua"))
             else
-                setupPage(require("tevgit:core/dashboard/pages/developDesktop.lua"))
+                setupPage(require("devgit:core/dashboard/pages/developDesktop.lua"))
             end
         end
     end

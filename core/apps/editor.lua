@@ -1,7 +1,7 @@
 -- This script is ran when the user is running a local app/sandbox
 
-local share = teverse.construct("guiTextBox", {
-    parent = teverse.coreInterface,
+local share = core.construct("guiTextBox", {
+    parent = core.coreInterface,
     size = guiCoord(0, 60, 0, 16),
     position = guiCoord(0.5, -65, 1, -16),
     strokeRadius = 2,
@@ -10,8 +10,8 @@ local share = teverse.construct("guiTextBox", {
     textSize = 12
 })
 
-local reload = teverse.construct("guiTextBox", {
-    parent = teverse.coreInterface,
+local reload = core.construct("guiTextBox", {
+    parent = core.coreInterface,
     size = guiCoord(0, 60, 0, 16),
     position = guiCoord(0.5, 5, 1, -16),
     strokeRadius = 2,
@@ -20,8 +20,8 @@ local reload = teverse.construct("guiTextBox", {
     textSize = 12
 })
 
-local test = teverse.construct("guiTextBox", {
-    parent = teverse.coreInterface,
+local test = core.construct("guiTextBox", {
+    parent = core.coreInterface,
     size = guiCoord(0, 90, 0, 16),
     position = guiCoord(1.0, -140, 1, -16),
     strokeRadius = 2,
@@ -31,15 +31,15 @@ local test = teverse.construct("guiTextBox", {
 })
 
 reload:on("mouseLeftUp", function()
-    teverse.apps:reload()
+    core.apps:reload()
 end)
 
 share:on("mouseLeftUp", function()
     share.visible = false
     reload.visible = false
 
-    local backdrop = teverse.construct("guiFrame", {
-        parent = teverse.coreInterface,
+    local backdrop = core.construct("guiFrame", {
+        parent = core.coreInterface,
         size = guiCoord(1, 0, 1, 0),
         position = guiCoord(0, 0, 0, 0),
         backgroundColour = colour(.25, .25, .25),
@@ -47,7 +47,7 @@ share:on("mouseLeftUp", function()
         zIndex = 1000
     })
 
-    local spinner = teverse.construct("guiIcon", {
+    local spinner = core.construct("guiIcon", {
         parent = backdrop,
         size = guiCoord(0, 40, 0, 40),
         position = guiCoord(0.5, -20, 0.5, -20),
@@ -64,11 +64,11 @@ share:on("mouseLeftUp", function()
         end
     end)
 
-    teverse.apps:upload()
-    local success, result = teverse.apps:waitFor("upload")
+    core.apps:upload()
+    local success, result = core.apps:waitFor("upload")
     spinner:destroy()
 
-    local container = teverse.construct("guiTextBox", {
+    local container = core.construct("guiTextBox", {
         parent = backdrop,
         size = guiCoord(0, 460, 0, 120),
         position = guiCoord(0.5, -230, 0.5, -60),
@@ -76,7 +76,7 @@ share:on("mouseLeftUp", function()
         dropShadowAlpha = 0.3,
     })
 
-    local label = teverse.construct("guiTextBox", {
+    local label = core.construct("guiTextBox", {
         parent = container,
         size = guiCoord(1.0, -20, 1.0, -20),
         position = guiCoord(0, 10, 0, 10),
@@ -87,7 +87,7 @@ share:on("mouseLeftUp", function()
         textFont = "tevurl:fonts/firaCodeRegular.otf"
     })
 
-    local title = teverse.construct("guiTextBox", {
+    local title = core.construct("guiTextBox", {
         parent = backdrop,
         size = guiCoord(0, 460, 0, 20),
         position = guiCoord(0.5, -230, 0.5, -80),
@@ -110,8 +110,8 @@ share:on("mouseLeftUp", function()
         label.text = result
     end
 
-    teverse.input:waitFor("mouseLeftUp")
-    teverse.apps:reload()
+    core.input:waitFor("mouseLeftUp")
+    core.apps:reload()
 end)
 
 
@@ -119,8 +119,8 @@ test:on("mouseLeftUp", function()
     test.visible = false
     reload.visible = false
 
-    local backdrop = teverse.construct("guiFrame", {
-        parent = teverse.coreInterface,
+    local backdrop = core.construct("guiFrame", {
+        parent = core.coreInterface,
         size = guiCoord(1, 0, 1, 0),
         position = guiCoord(0, 0, 0, 0),
         backgroundColour = colour(.25, .25, .25),
@@ -128,7 +128,7 @@ test:on("mouseLeftUp", function()
         zIndex = 1000
     })
 
-    local spinner = teverse.construct("guiIcon", {
+    local spinner = core.construct("guiIcon", {
         parent = backdrop,
         size = guiCoord(0, 40, 0, 40),
         position = guiCoord(0.5, -20, 0.5, -20),
@@ -145,11 +145,11 @@ test:on("mouseLeftUp", function()
         end
     end)
 
-    teverse.apps:test()
-    local success, result = teverse.apps:waitFor("upload")
+    core.apps:test()
+    local success, result = core.apps:waitFor("upload")
     spinner:destroy()
 
-    local container = teverse.construct("guiTextBox", {
+    local container = core.construct("guiTextBox", {
         parent = backdrop,
         size = guiCoord(0, 460, 0, 120),
         position = guiCoord(0.5, -230, 0.5, -60),
@@ -157,7 +157,7 @@ test:on("mouseLeftUp", function()
         dropShadowAlpha = 0.3,
     })
 
-    local label = teverse.construct("guiTextBox", {
+    local label = core.construct("guiTextBox", {
         parent = container,
         size = guiCoord(1.0, -20, 1.0, -20),
         position = guiCoord(0, 10, 0, 10),
@@ -168,7 +168,7 @@ test:on("mouseLeftUp", function()
         textFont = "tevurl:fonts/firaCodeRegular.otf"
     })
 
-    local title = teverse.construct("guiTextBox", {
+    local title = core.construct("guiTextBox", {
         parent = backdrop,
         size = guiCoord(0, 460, 0, 20),
         position = guiCoord(0.5, -230, 0.5, -80),
@@ -180,7 +180,7 @@ test:on("mouseLeftUp", function()
     })
 
     if success then
-        teverse.apps:reload()
+        core.apps:reload()
     else
         title.backgroundColour = colour.rgb(179, 70, 70)
         title.textColour = colour.white()

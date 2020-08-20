@@ -20,19 +20,19 @@ local new = function(targetObject, movingObject)
 		local onMove
 		local onRelease
 
-		onMove = teverse.input:on("mouseMoved", function()
-			local mousePosition = teverse.input.mousePosition
+		onMove = core.input:on("mouseMoved", function()
+			local mousePosition = core.input.mousePosition
 			movingObject.position = guiCoord(0, mousePosition.x - offset.x, 0, mousePosition.y - offset.y)
 		end)
 
-		onRelease = teverse.input:on("mouseLeftUp", function()
-			teverse.disconnect(onMove)
-			teverse.disconnect(onRelease)
+		onRelease = core.input:on("mouseLeftUp", function()
+			core.disconnect(onMove)
+			core.disconnect(onRelease)
 			debounce = false
 		end)
 	end)
 
-	return function() teverse.disconnect(onMouseLeftDown) end
+	return function() core.disconnect(onMouseLeftDown) end
 end
 
 

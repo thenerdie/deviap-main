@@ -637,9 +637,9 @@ addDocs("workshop", {
   methods = {
       disconnectGame = method("undefined", nil, nil), 
       joinGame = method("undefined", nil, nil), 
-      hasLocalTevGit = method("undefined", nil, nil), 
+      hasLocaldevgit = method("undefined", nil, nil), 
       reloadCreate = method("undefined", nil, nil), 
-      setTevGit = method("undefined", nil, nil), 
+      setdevgit = method("undefined", nil, nil), 
       saveGame = method("undefined", nil, nil), 
       setSettings = method("undefined", nil, nil), 
       setSoundDebug = method("undefined", nil, nil), 

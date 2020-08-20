@@ -1,11 +1,11 @@
-local main = teverse.construct("guiFrame", {
-    parent = teverse.interface,
+local main = core.construct("guiFrame", {
+    parent = core.interface,
     backgroundColour = colour.rgb(52, 58, 64),
     size = guiCoord(1, 0, 1, 100),
     position = guiCoord(0, 0, 0, -50)
 })
 
-teverse.construct("guiImage", {
+core.construct("guiImage", {
     position = guiCoord(0.5, -750, 0.5, -750),
     size = guiCoord(0, 1500, 0, 1500),
     parent = main,
@@ -17,7 +17,7 @@ teverse.construct("guiImage", {
     zIndex = -1
 })
 
-local dialog = teverse.construct("guiFrame", {
+local dialog = core.construct("guiFrame", {
     parent = main,
     size = guiCoord(0, 200, 0, 100),
     position = guiCoord(0.5, -100, 0.5, -50),
@@ -26,7 +26,7 @@ local dialog = teverse.construct("guiFrame", {
     strokeRadius = 3
 })
 
-local gui = teverse.construct("guiTextBox", {
+local gui = core.construct("guiTextBox", {
     parent = dialog,
     size = guiCoord(0.8, 0, 0, 40),
     position = guiCoord(0.1, 0, 0, 5),
@@ -38,7 +38,7 @@ local gui = teverse.construct("guiTextBox", {
     textFont = "tevurl:fonts/moskUltraBold.ttf"
 })
 
-local gui = teverse.construct("guiTextBox", {
+local gui = core.construct("guiTextBox", {
     parent = dialog,
     size = guiCoord(0.8, 0, 1, -50),
     position = guiCoord(0.1, 0, 0, 50),
@@ -50,7 +50,7 @@ local gui = teverse.construct("guiTextBox", {
     textColour = colour.rgb(61, 66, 71)
 })
 
-local progressBar = teverse.construct("guiFrame", {
+local progressBar = core.construct("guiFrame", {
     parent = dialog,
     size = guiCoord(0, 0, 0, 5),
     position = guiCoord(0, 0, 1, -5),
@@ -62,12 +62,12 @@ if _OS == "OSX" or _OS == "IOS" then
     gui.text = "A new version is available, please check the App Store."
 end
 
-teverse.networking:on("_update", function(message)
+core.networking:on("_update", function(message)
     print('got ', message)
     gui.text = message
 end)
 
-teverse.networking:on("_downloadProgress", function(str)
+core.networking:on("_downloadProgress", function(str)
     local pcnt = tonumber(str)
     progressBar.size = guiCoord(pcnt/100, 0, 0, 5)
 end)

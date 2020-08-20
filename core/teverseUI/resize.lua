@@ -95,30 +95,30 @@ local new = function(object, spacing)
 	spacing = spacing or 5
 
 	local debounce = false
-	local onMouseLeftDown = teverse.input:on("mouseLeftDown", function()
+	local onMouseLeftDown = core.input:on("mouseLeftDown", function()
 		if debounce then return end
 		debounce = true
 
-		local mousePosition = teverse.input.mousePosition
+		local mousePosition = core.input.mousePosition
 		local direction = directionOfResize(object, mousePosition, spacing)
 
 		local onMouseMoved
 		local onMouseLeftUp
 
-		onMouseMoved = teverse.input:on("mouseMoved", function()
-			local newMousePosition = teverse.input.mousePosition
+		onMouseMoved = core.input:on("mouseMoved", function()
+			local newMousePosition = core.input.mousePosition
 			object.size = sizeBy(object, newMousePosition, direction)
 			if direction.x == -1 then object.position = guiCoord(0, newMousePosition.x, 0, object.absolutePosition.y) end
 			if direction.y == -1 then object.position = guiCoord(0, object.absolutePosition.x, 0, newMousePosition.y) end
 		end)
-		onMouseLeftUp = teverse.input:on("mouseLeftUp", function()
-			teverse.disconnect(onMouseMoved)
-			teverse.disconnect(onMouseLeftUp)
+		onMouseLeftUp = core.input:on("mouseLeftUp", function()
+			core.disconnect(onMouseMoved)
+			core.disconnect(onMouseLeftUp)
 			debounce = false
 		end)
 	end)
 
-	return function() teverse.disconnect(onMouseLeftDown) end
+	return function() core.disconnect(onMouseLeftDown) end
 end
 
 return new

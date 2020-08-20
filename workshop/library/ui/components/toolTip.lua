@@ -1,7 +1,7 @@
 -- Copyright 2020- Teverse
 -- This script constructs (or builds) the tooltip component
 
-local globals = require("tevgit:workshop/library/globals.lua") -- globals; variables or instances that can be shared between files
+local globals = require("devgit:workshop/library/globals.lua") -- globals; variables or instances that can be shared between files
 
 return {
     construct = function(orientation, element, text, ...)
@@ -27,8 +27,8 @@ return {
         local positionOverride = args[1] or guiCoord(0, 0, 0, 0) -- If not specified, default to guiCoord(0, 0, 0, 0)
 
         if orientation == "vertical" then -- If orientation is specified to "vertical"
-            local container = teverse.construct("guiFrame", {
-                parent = teverse.interface,
+            local container = core.construct("guiFrame", {
+                parent = core.interface,
                 size = guiCoord(0.1, 0, 0.1, 0),
                 position = element.position+guiCoord(-0.02, 0, -0.01, 0),
                 backgroundColour = globals.defaultColours.red,
@@ -37,7 +37,7 @@ return {
                 backgroundAlpha = 0
             })
 
-            teverse.construct("guiIcon", {
+            core.construct("guiIcon", {
                 parent = container,
                 size = guiCoord(0, 48, 0, 48),
                 position = guiCoord(0.33, 0, -0.15, 0),
@@ -48,7 +48,7 @@ return {
                 backgroundAlpha = 0
             })
 
-            local bodyContainer = teverse.construct("guiFrame", {
+            local bodyContainer = core.construct("guiFrame", {
                 parent = container,
                 size = guiCoord(0.95, 0, 0.4, 0),
                 position = guiCoord(0.025, 0, 0.23, 0),
@@ -59,7 +59,7 @@ return {
                 strokeColour = globals.defaultColours.secondary
             })
 
-            teverse.construct("guiIcon", {
+            core.construct("guiIcon", {
                 parent = bodyContainer,
                 size = guiCoord(0, 16, 0, 16),
                 position = guiCoord(0.04, 0, 0.25, 0),
@@ -69,7 +69,7 @@ return {
                 backgroundColour = globals.defaultColours.white,
             })
 
-            teverse.construct("guiTextBox", {
+            core.construct("guiTextBox", {
                 parent = bodyContainer,
                 size = guiCoord(0.82, 0, 1, 0),
                 position = guiCoord(0.15, 0, 0, 0),
@@ -85,8 +85,8 @@ return {
             self.hide = function() container.visible = false end -- Hide tooltip method
         
         elseif orientation == "horizontal" then -- If orientation is specified to "horizontal"
-            local container = teverse.construct("guiFrame", {
-                parent = teverse.interface,
+            local container = core.construct("guiFrame", {
+                parent = core.interface,
                 size = guiCoord(0.13, 0, 0.05, 0),
                 position = (element.position+guiCoord(-0.22, 0, 0.24, 0))+positionOverride, -- Shorthand positioning
                 backgroundColour = globals.defaultColours.red,
@@ -95,7 +95,7 @@ return {
                 backgroundAlpha = 0
             })
 
-            teverse.construct("guiIcon", {
+            core.construct("guiIcon", {
                 parent = container,
                 size = guiCoord(0, 48, 0, 48),
                 position = guiCoord(-0.03, 0, -0.06, 0),
@@ -106,7 +106,7 @@ return {
                 backgroundAlpha = 0
             })
 
-            local bodyContainer = teverse.construct("guiFrame", {
+            local bodyContainer = core.construct("guiFrame", {
                 parent = container,
                 size = guiCoord(0.8, 0, 0.9, 0),
                 position = guiCoord(0.133, 0, 0.05, 0),
@@ -117,7 +117,7 @@ return {
                 strokeColour = globals.defaultColours.primary
             })
 
-            teverse.construct("guiIcon", {
+            core.construct("guiIcon", {
                 parent = bodyContainer,
                 size = guiCoord(0, 16, 0, 16),
                 position = guiCoord(0.05, 0, 0.3, 0),
@@ -127,7 +127,7 @@ return {
                 backgroundColour = globals.defaultColours.white,
             })
 
-            teverse.construct("guiTextBox", {
+            core.construct("guiTextBox", {
                 parent = bodyContainer,
                 size = guiCoord(0.82, 0, 1, 0),
                 position = guiCoord(0.15, 0, 0, 0),

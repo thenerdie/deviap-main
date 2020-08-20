@@ -1,4 +1,4 @@
-local createApp = require("tevgit:core/dashboard/appCard.lua")
+local createApp = require("devgit:core/dashboard/appCard.lua")
 
 return {
     name = "Apps",
@@ -6,7 +6,7 @@ return {
     iconType = "faSolid",
     scrollView = true,
     setup = function(page)
-        local loading = teverse.construct("guiTextBox", {
+        local loading = core.construct("guiTextBox", {
             parent = page,
             size = guiCoord(1.0, 100, 1.0, 100),
             position = guiCoord(0, -50, 0, -50),
@@ -19,7 +19,7 @@ return {
             zIndex = 10000
         })
 
-        teverse.construct("guiTextBox", {
+        core.construct("guiTextBox", {
             parent = page,
             size = guiCoord(1.0, -20, 0, 48),
             position = guiCoord(0, 10, 0, 10),
@@ -29,7 +29,7 @@ return {
             textAlign = "middleLeft"
         })
 
-        local subtitle = teverse.construct("guiTextBox", {
+        local subtitle = core.construct("guiTextBox", {
             parent = page,
             size = guiCoord(1.0, -20, 0, 18),
             position = guiCoord(0, 10, 0, 55),
@@ -38,7 +38,7 @@ return {
             textSize = 18,
             textAlign = "middleLeft"
         })
-        local appsContainer = teverse.construct("guiFrame", {
+        local appsContainer = core.construct("guiFrame", {
             parent = page,
             size = guiCoord(1.0, -20, 1, -100),
             position = guiCoord(0, 10, 0, 80),
@@ -46,24 +46,24 @@ return {
         })
 
         if _DEVICE:sub(0, 6) == "iPhone" then
-            teverse.guiHelper
+            core.guiHelper
                 .gridConstraint(appsContainer, {
                     cellSize = guiCoord(0, page.absoluteSize.x - 20, 0, page.absoluteSize.x - 20),
                     cellMargin = guiCoord(0, 15, 0, 25)
                 })
         else
-            teverse.guiHelper
+            core.guiHelper
                 .gridConstraint(appsContainer, {
                     cellSize = guiCoord(0, 200, 0, 200),
                     cellMargin = guiCoord(0, 15, 0, 25)
                 })
         end
         
-        teverse.http:get("https://teverse.com/api/apps", {
-            ["Authorization"] = "BEARER " .. teverse.userToken
+        core.http:get("https://teverse.com/api/apps", {
+            ["Authorization"] = "BEARER " .. core.userToken
         }, function(code, body)
             if code == 200 then
-                local apps = teverse.json:decode(body)
+                local apps = core.json:decode(body)
                 subtitle.text = "Found " .. #apps .. " public apps:"
                 for _,app in pairs(apps) do
                     local appGui, button = createApp(app)
@@ -73,11 +73,11 @@ return {
                             loading.text = "Loading App " .. (app.packageNetworked and "Online" or "Offline")
                             loading.visible = true
                             if not app.packageNetworked then
-                                teverse.apps:loadRemote(app.id)
+                                core.apps:loadRemote(app.id)
                             else
-                                teverse.networking:initiate(app.id)
+                                core.networking:initiate(app.id)
                             end
-                            teverse.apps:waitFor("download")
+                            core.apps:waitFor("download")
                             loading.visible = false
                         end
                     end)
@@ -98,6 +98,6 @@ return {
 
         calculateScrollHeight()
         appsContainer:on("childAdded", calculateScrollHeight)
-        teverse.input:on("screenResized", calculateScrollHeight)
+        core.input:on("screenResized", calculateScrollHeight)
     end
 }

@@ -1,8 +1,8 @@
 -- Copyright 2020- Teverse
 -- This script constructs (or builds) the sidebar controller
 
-local globals = require("tevgit:workshop/library/globals.lua") -- globals; variables or instances that can be shared between files
-local toolTip = require("tevgit:workshop/library/ui/components/toolTip.lua") -- UI component
+local globals = require("devgit:workshop/library/globals.lua") -- globals; variables or instances that can be shared between files
+local toolTip = require("devgit:workshop/library/ui/components/toolTip.lua") -- UI component
 
 return {
     construct = function(idValue)
@@ -22,8 +22,8 @@ return {
         self = data
         self.id = idValue -- Unique Indentifier
         
-        local toolsContainer = teverse.construct("guiFrame", {
-            parent = teverse.interface,
+        local toolsContainer = core.construct("guiFrame", {
+            parent = core.interface,
             size = guiCoord(0, 50, 1, 0),
             position = guiCoord(0, 0, 0, 40),
             backgroundColour = globals.defaultColours.primary,
@@ -46,7 +46,7 @@ return {
             local metadata = {}
             self = metadata
 
-            local container = teverse.construct("guiFrame", {
+            local container = core.construct("guiFrame", {
                 parent = toolsContainer,
                 name = pageName,
                 size = guiCoord(1, 0, 0, 600),
@@ -59,7 +59,7 @@ return {
             self.getParentContainer = function() return toolsContainer end
 
             self.registerIcon = function(name, icon, callback)
-                local _icon = teverse.construct("guiIcon", {
+                local _icon = core.construct("guiIcon", {
                     parent = container,
                     name = name,
                     size = guiCoord(0, 32, 0, 32),
@@ -91,7 +91,7 @@ return {
         end
 
         self.registerDefaultIcon = function(icon, callback)
-            local icon = teverse.construct("guiIcon", {
+            local icon = core.construct("guiIcon", {
                 parent = toolsContainer,
                 size = guiCoord(0, 32, 0, 32),
                 position = guiCoord(0, 9, 0, (count*42)+9),

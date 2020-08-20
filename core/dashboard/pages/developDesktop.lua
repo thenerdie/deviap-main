@@ -1,4 +1,4 @@
-local createApp = require("tevgit:core/dashboard/appCard.lua")
+local createApp = require("devgit:core/dashboard/appCard.lua")
 
 return {
     name = "Develop",
@@ -6,7 +6,7 @@ return {
     iconType = "faSolid",
     scrollView = true,
     setup = function(page)
-        local loading = teverse.construct("guiTextBox", {
+        local loading = core.construct("guiTextBox", {
             parent = page,
             size = guiCoord(1.0, 100, 1.0, 100),
             position = guiCoord(0, -50, 0, -50),
@@ -19,7 +19,7 @@ return {
             zIndex = 10000
         })
         
-        teverse.construct("guiTextBox", {
+        core.construct("guiTextBox", {
             parent = page,
             size = guiCoord(1.0, -20, 0, 48),
             position = guiCoord(0, 10, 0, 10),
@@ -34,7 +34,7 @@ return {
                 "Run packaged .tevapp",
                 "archive",
                 function()
-                    teverse.apps:promptApp()
+                    core.apps:promptApp()
                 end
             },
             {
@@ -44,15 +44,15 @@ return {
 
                     -- backwards compatibility
                     if _TEV_VERSION_MINOR < 25 then
-                        return teverse.apps:promptAppDirectory()
+                        return core.apps:promptAppDirectory()
                     end
 
-                    local recents = teverse.apps:recentDirectories()
+                    local recents = core.apps:recentDirectories()
                     if #recents == 0 then
-                        teverse.apps:promptAppDirectory()
+                        core.apps:promptAppDirectory()
                     else
-                        local backdrop = teverse.construct("guiFrame", {
-                            parent = teverse.interface,
+                        local backdrop = core.construct("guiFrame", {
+                            parent = core.interface,
                             size = guiCoord(1, 100, 1, 100),
                             position = guiCoord(0, -50, 0, -50),
                             backgroundColour = colour(0, 0, 0),
@@ -60,11 +60,11 @@ return {
                             zIndex = 10
                         })
 
-                        teverse.tween:begin(backdrop, 0.2, {
+                        core.tween:begin(backdrop, 0.2, {
                             backgroundAlpha = 0.8
                         })
 
-                        local dialog = teverse.construct("guiFrame", {
+                        local dialog = core.construct("guiFrame", {
                             parent = backdrop,
                             size = guiCoord(0, 200, 0, 100),
                             position = guiCoord(0.5, -100, 0.5, -50),
@@ -74,12 +74,12 @@ return {
                             strokeAlpha = 0.05
                         })
 
-                        teverse.tween:begin(dialog, 0.2, {
+                        core.tween:begin(dialog, 0.2, {
                             size = guiCoord(0, 500, 0, 200),
                             position = guiCoord(0.5, -250, 0.5, -100)
                         }, "outQuad")
 
-                        local prompt = teverse.construct("guiIcon", {
+                        local prompt = core.construct("guiIcon", {
                             parent = dialog,
                             size = guiCoord(0.3, 0, 1, 0),
                             position = guiCoord(0.7, 0, 0, 0),
@@ -92,13 +92,13 @@ return {
                         })
 
                         prompt:on("mouseLeftUp", function()
-                            teverse.apps:promptAppDirectory()
+                            core.apps:promptAppDirectory()
                         end)
 
                         local y = 0
                         for _,v in pairs(recents) do
 
-                            local trigger = teverse.construct("guiTextBox", {
+                            local trigger = core.construct("guiTextBox", {
                                 parent = dialog,
                                 size = guiCoord(0.7, -20, 0, 18),
                                 position = guiCoord(0, 10, 0, y),
@@ -108,7 +108,7 @@ return {
                             })
 
                             trigger:on("mouseLeftUp", function()
-                                teverse.apps:runRecent(v)
+                                core.apps:runRecent(v)
                             end)
 
                             y = y + 20
@@ -118,19 +118,19 @@ return {
             }
         }
 
-        if teverse.dev.localTevGit then
+        if core.dev.localdevgit then
             table.insert(btns, {
                 "Run workshop (in dev)",
                 "tools",
                 function ( )
-                    teverse.apps:loadWorkshop()
+                    core.apps:loadWorkshop()
                 end
             })
         end
 
         local btnWidth = 1 / #btns
         for i, cb in pairs(btns) do
-            local newSandboxBtn = teverse.construct("guiFrame", {
+            local newSandboxBtn = core.construct("guiFrame", {
                 parent = page,
                 size = guiCoord(btnWidth, -20, 0, 70),
                 position = guiCoord((i-1)*btnWidth, 10, 0, 60),
@@ -140,7 +140,7 @@ return {
                 strokeAlpha = 0.05
             })
 
-            teverse.guiHelper
+            core.guiHelper
                 .bind(newSandboxBtn, "xs", {
                     size = guiCoord(1, -20, 0, 70),
                     position = guiCoord(0, 10, 0, 60 + ((i - 1) * 90))
@@ -153,7 +153,7 @@ return {
         
             newSandboxBtn:on("mouseLeftUp", cb[3])
 
-            teverse.construct("guiTextBox", {
+            core.construct("guiTextBox", {
                 parent = newSandboxBtn,
                 size = guiCoord(0.75, -20, 0, 18),
                 position = guiCoord(0.25, 10, 0.5, -9),
@@ -166,7 +166,7 @@ return {
                 --textFont = "tevurl:fonts/openSansLight.ttf"
             })
 
-            teverse.construct("guiIcon", {
+            core.construct("guiIcon", {
                 parent = newSandboxBtn,
                 size = guiCoord(0, 40, 0, 40),
                 position = guiCoord(0.25, -20, 0.5, -20),
@@ -179,20 +179,20 @@ return {
             })
         end
 
-        local appsContainer = teverse.construct("guiFrame", {
+        local appsContainer = core.construct("guiFrame", {
             parent = page,
             size = guiCoord(1.0, -20, 1, -150),
             position = guiCoord(0, 10, 0, 150),
             backgroundAlpha = 0
         })
 
-        teverse.guiHelper
+        core.guiHelper
             .gridConstraint(appsContainer, {
                 cellSize = guiCoord(0, 200, 0, 200),
                 cellMargin = guiCoord(0, 15, 0, 25)
             })
 
-        teverse.guiHelper
+            core.guiHelper
             .bind(appsContainer, "xs", {
                 size = guiCoord(1, -20, 1, -330),
                 position = guiCoord(0, 10, 0, 330)
@@ -202,11 +202,11 @@ return {
                 position = guiCoord(0, 0, 0, 150)
             })
 
-        teverse.http:get("https://teverse.com/api/users/" .. teverse.networking.localClient.id .. "/apps", {
-            ["Authorization"] = "BEARER " .. teverse.userToken
+            core.http:get("https://teverse.com/api/users/" .. core.networking.localClient.id .. "/apps", {
+            ["Authorization"] = "BEARER " .. core.userToken
         }, function(code, body)
             if code == 200 then
-                local apps = teverse.json:decode(body)
+                local apps = core.json:decode(body)
                 for _,app in pairs(apps) do
                     local appGui, launchButton = createApp(app)
                     appGui.parent = appsContainer
@@ -215,11 +215,11 @@ return {
                             loading.text = "Loading App " .. (app.packageNetworked and "Online" or "Offline")
                             loading.visible = true
                             if not app.packageNetworked then
-                                teverse.apps:loadRemote(app.id)
+                                core.apps:loadRemote(app.id)
                             else
-                                teverse.networking:initiate(app.id)
+                                core.networking:initiate(app.id)
                             end
-                            teverse.apps:waitFor("download")
+                            core.apps:waitFor("download")
                             loading.visible = false
                         end
                     end)
@@ -241,6 +241,6 @@ return {
 
         calculateScrollHeight()
         appsContainer:on("childAdded", calculateScrollHeight)
-        teverse.input:on("screenResized", calculateScrollHeight)
+        core.input:on("screenResized", calculateScrollHeight)
     end
 }

@@ -3,7 +3,7 @@
 
 return {
     init = function()
-        require("tevgit:core/gameplay/Chat/ui.lua").ui()
-        require("tevgit:core/gameplay/Chat/server.lua")
+        require("devgit:core/gameplay/Chat/ui.lua").ui()
+        require("devgit:core/gameplay/Chat/server.lua")
     end
 }

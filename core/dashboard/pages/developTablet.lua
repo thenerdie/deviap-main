@@ -3,7 +3,7 @@ return {
     iconId = "layer-group",
     iconType = "faSolid",
     setup = function(page)
-        teverse.construct("guiTextBox", {
+        core.construct("guiTextBox", {
             parent = page,
             size = guiCoord(1.0, -20, 0, 48),
             position = guiCoord(0, 10, 0, 10),

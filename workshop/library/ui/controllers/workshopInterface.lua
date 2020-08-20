@@ -1,10 +1,10 @@
 -- Copyright 2020- Teverse
 -- This script is responsible for creating the workshop interface
 
-local globals = require("tevgit:workshop/library/globals.lua") -- globals; variables or instances that can be shared between files
-local topbarInterface = require("tevgit:workshop/library/ui/controllers/topbarInterface.lua") -- UI Controller
-local sidebarInterface = require("tevgit:workshop/library/ui/controllers/sidebarInterface.lua") -- UI Controller
-local commands = require("tevgit:workshop/library/toolchain/commands.lua") -- Commands Registry
+local globals = require("devgit:workshop/library/globals.lua") -- globals; variables or instances that can be shared between files
+local topbarInterface = require("devgit:workshop/library/ui/controllers/topbarInterface.lua") -- UI Controller
+local sidebarInterface = require("devgit:workshop/library/ui/controllers/sidebarInterface.lua") -- UI Controller
+local commands = require("devgit:workshop/library/toolchain/commands.lua") -- Commands Registry
 
 local topBar = topbarInterface.construct("horizontalNavbar", "Test Place 1") -- Create initial topbar instance
 local sideBar = sidebarInterface.construct("verticalNavbar") -- Create initial sidebar instance

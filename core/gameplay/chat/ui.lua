@@ -1,18 +1,18 @@
 -- Copyright 2020- Teverse
 -- This script constructs (or builds) the default in-game chat system on the client
 
-local globals = require("tevgit:workshop/library/globals.lua") -- globals; variables or instances that can be shared between files
+local globals = require("devgit:workshop/library/globals.lua") -- globals; variables or instances that can be shared between files
 
 -- Load the networking debug UI from the teverse/teverse github
---local debugContainer = require("tevgit:utilities/networkDebug.lua")()
---debugContainer.parent = teverse.interface
+--local debugContainer = require("devgit:utilities/networkDebug.lua")()
+--debugContainer.parent = core.interface
 
-local clientLocal = teverse.networking.localClient
+local clientLocal = core.networking.localClient
 
 return {
     ui = function()
-        local chatContainer = teverse.construct("guiFrame", {
-            parent = teverse.interface,
+        local chatContainer = core.construct("guiFrame", {
+            parent = core.interface,
             size = guiCoord(0, 300, 0, 200),
             position = guiCoord(0, 0, 0, 0),
             backgroundColour = globals.defaultColours.white,
@@ -21,8 +21,8 @@ return {
             visible = false
         })
 
-        local chatInputField = teverse.construct("guiTextBox", {
-            parent = teverse.interface,
+        local chatInputField = core.construct("guiTextBox", {
+            parent = core.interface,
             size = guiCoord(1, 0, 0, 20),
             position = guiCoord(0, 0, 0.9, 0),
             textAlign = "middleLeft",
@@ -49,9 +49,9 @@ return {
 
             -- Should add a pcall here to determine if the message was sent successfully
             -- If not, display that the message was never sent
-            teverse.networking:sendToServer("chat", text)
+            core.networking:sendToServer("chat", text)
 
-            local Message = teverse.construct("guiFrame", {
+            local Message = core.construct("guiFrame", {
                 parent = chatContainer,
                 size = guiCoord(1, 0, 0, 15),
                 position = guiCoord(0, 0, 0, 185),
@@ -59,7 +59,7 @@ return {
                 backgroundAlpha = 0
             })
 
-            teverse.construct("guiTextBox", {
+            core.construct("guiTextBox", {
                 parent = Message,
                 size = guiCoord(1, 0, 1, 0),
                 position = guiCoord(0, 0, 0, 0),
@@ -74,7 +74,7 @@ return {
 
 
         function serverMessage(client, message, color)
-            local joinMessage = teverse.construct("guiFrame", {
+            local joinMessage = core.construct("guiFrame", {
                 parent = chatContainer,
                 size = guiCoord(1, 0, 0, 15),
                 position = guiCoord(0, 0, 0, 185),
@@ -82,7 +82,7 @@ return {
                 backgroundAlpha = 0
             })
 
-            teverse.construct("guiTextBox", {
+            core.construct("guiTextBox", {
                 parent = joinMessage,
                 size = guiCoord(1, 0, 1, 0),
                 position = guiCoord(0, 0, 0, 0),
@@ -118,17 +118,17 @@ return {
             chatInputField.text = " "
         end)
 
-        teverse.input:on("keyDown", function(key)
+        core.input:on("keyDown", function(key)
             if key == "KEY_SLASH" then
                 chatInputField.visible = true
             end
         end)
 
         -- Networking Events
-        teverse.networking:on("ChatMessage", message)
-        teverse.networking:on("_clientConnected", function(client) serverMessage(client, " has joined the server.", globals.defaultColours.green) end)
-        teverse.networking:on("_clientDisconnected", function(client) serverMessage(client, " has left the server.", globals.defaultColours.red) end)
-        teverse.networking:on("_disconnected", function(client) serverMessage(client, " has disconnected from the server.", globals.defaultColours.yellow) end)
-        teverse.networking:on("_connected", function(client) serverMessage(client, " has connected to the server.", globals.defaultColours.yellow) end)
+        core.networking:on("ChatMessage", message)
+        core.networking:on("_clientConnected", function(client) serverMessage(client, " has joined the server.", globals.defaultColours.green) end)
+        core.networking:on("_clientDisconnected", function(client) serverMessage(client, " has left the server.", globals.defaultColours.red) end)
+        core.networking:on("_disconnected", function(client) serverMessage(client, " has disconnected from the server.", globals.defaultColours.yellow) end)
+        core.networking:on("_connected", function(client) serverMessage(client, " has connected to the server.", globals.defaultColours.yellow) end)
     end
 }

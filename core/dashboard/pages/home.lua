@@ -1,12 +1,12 @@
 -- Copyright 2020- Teverse.com
 -- Used to display the home screen of the teverse application
 
-local globals = require("tevgit:workshop/library/globals.lua") -- globals; variables or instances that can be shared between files
-local modal = require("tevgit:workshop/library/ui/components/modal.lua") -- UI component
+local globals = require("devgit:workshop/library/globals.lua") -- globals; variables or instances that can be shared between files
+local modal = require("devgit:workshop/library/ui/components/modal.lua") -- UI component
 
 local count = 0
 local function addTag(parent, icon, name, iconColour)
-    local frame = teverse.construct("guiFrame", {
+    local frame = core.construct("guiFrame", {
         parent = parent:child("_container"):child("_content"),
         size = guiCoord(0.3, 0, 0.25, 0),
         position = guiCoord(0, (count*43)+5, 0, 40),
@@ -19,7 +19,7 @@ local function addTag(parent, icon, name, iconColour)
         zIndex = 500
     })
 
-    teverse.construct("guiIcon", {
+    core.construct("guiIcon", {
         parent = frame,
         size = guiCoord(0, 10, 0, 10),
         position = guiCoord(0.05, 0, 0.21, 0),
@@ -28,7 +28,7 @@ local function addTag(parent, icon, name, iconColour)
         iconColour = iconColour
     })
 
-    teverse.construct("guiTextBox", {
+    core.construct("guiTextBox", {
         parent = frame,
         size = guiCoord(0.6, 0, 0.6, 0),
         position = guiCoord(0.3, 0, 0.23, 0),
@@ -52,7 +52,7 @@ local function createFlair(parent, data)
         
         -- Beta(Tester) Insignia
         if data.postedBy.beta == true then
-            teverse.construct("guiIcon", {
+            core.construct("guiIcon", {
                 parent = parent:child("username"),
                 size = guiCoord(0, 10, 0, 10),
                 position = guiCoord(0, parent:child("username").textDimensions.x+((flairCount*10)+2), 0, 6),
@@ -66,7 +66,7 @@ local function createFlair(parent, data)
 
         -- Plus Membership Insignia
         if data.postedBy.membership == 1 then
-            teverse.construct("guiIcon", {
+            core.construct("guiIcon", {
                 parent = parent:child("username"),
                 size = guiCoord(0, 10, 0, 10),
                 position = guiCoord(0, parent:child("username").textDimensions.x+((flairCount*10)+2), 0, 6),
@@ -83,7 +83,7 @@ local function createFlair(parent, data)
 
         -- Pro Membership Insignia
         if data.postedBy.membership == "pro" then
-            teverse.construct("guiIcon", {
+            core.construct("guiIcon", {
                 parent = parent:child("username"),
                 size = guiCoord(0, 10, 0, 10),
                 position = guiCoord(0, parent:child("username").textDimensions.x+((flairCount*10)+2), 0, 6),
@@ -100,7 +100,7 @@ local function createFlair(parent, data)
         -- Mod/Staff Insignia
         --[[
         if  then
-            teverse.construct("guiIcon", {
+            core.construct("guiIcon", {
                 parent = parent:child("username"),
                 size = guiCoord(0, 10, 0, 10),
                 position = guiCoord(0, parent:child("username").textDimensions.x+((flairCount*10)+2), 0, 6),
@@ -120,14 +120,14 @@ local function createFlair(parent, data)
 end
 
 local function newFeedItem(date, data)
-    local item = teverse.construct("guiFrame", {
+    local item = core.construct("guiFrame", {
         size = guiCoord(1, -20, 0, 48),
         position = guiCoord(0, 10, 0, 40),
         backgroundAlpha = 0,
         name = "feedItem"
     })
 
-    teverse.construct("guiImage", {
+    core.construct("guiImage", {
         name = "profilePicture",
         size = guiCoord(0, 30, 0, 30),
         position = guiCoord(0, 0, 0, 5),
@@ -137,7 +137,7 @@ local function newFeedItem(date, data)
         strokeAlpha = 0.04
     })
 
-    local username = teverse.construct("guiTextBox", {
+    local username = core.construct("guiTextBox", {
         name = "username",
         size = guiCoord(0.8, -50, 0, 20),
         position = guiCoord(0, 40, 0, 3),
@@ -150,7 +150,7 @@ local function newFeedItem(date, data)
         zIndex = 500
     })
     
-    teverse.construct("guiTextBox", {
+    core.construct("guiTextBox", {
         name = "date",
         size = guiCoord(1, -50, 0, 14),
         position = guiCoord(0, 40, 0, 3),
@@ -163,7 +163,7 @@ local function newFeedItem(date, data)
         textWrap = true
     })
     
-    teverse.construct("guiTextBox", {
+    core.construct("guiTextBox", {
         name = "body",
         size = guiCoord(1, -50, 1, -28),
         position = guiCoord(0, 40, 0, 22),
@@ -178,7 +178,7 @@ local function newFeedItem(date, data)
     -- Create User Modal (profile click/touch on feed)
     local _modal = modal.construct(guiCoord(0, 130, 0, 60), guiCoord(0, 40, 0, 25))
     _modal.content.parent = item
-    local content = teverse.construct("guiFrame", {
+    local content = core.construct("guiFrame", {
         parent = _modal.content,
         name = "_content",
         position = guiCoord(0, 0, 0, 0),
@@ -189,7 +189,7 @@ local function newFeedItem(date, data)
         strokeWidth = 1
     })
     
-    teverse.construct("guiImage", {
+    core.construct("guiImage", {
         parent = content,
         name = "profilePicture",
         size = guiCoord(0, 32, 0, 32),
@@ -203,7 +203,7 @@ local function newFeedItem(date, data)
         dropShadowOffset = vector2(0.5, 1.5)
     })
 
-    teverse.construct("guiTextBox", {
+    core.construct("guiTextBox", {
         parent = content,
         name = "username",
         size = guiCoord(0, 92, 0, 20),
@@ -217,7 +217,7 @@ local function newFeedItem(date, data)
         zIndex = 500
     })
 
-    local messageButton = teverse.construct("guiTextBox", {
+    local messageButton = core.construct("guiTextBox", {
         parent = content,
         name = "messageButton",
         size = guiCoord(0.68, 0, 0.25, 0),
@@ -260,7 +260,7 @@ return {
     iconType = "faSolid",
     setup = function(page)
 
-        local feed = teverse.construct("guiScrollView", {
+        local feed = core.construct("guiScrollView", {
             parent = page,
             size = guiCoord(1, 0, 1, 50),
             position = guiCoord(0, 0, 0, -50),
@@ -269,7 +269,7 @@ return {
             scrollbarWidth = 4
         })
 
-        teverse.guiHelper
+        core.guiHelper
             .bind(feed, "xs", {
                 size = guiCoord(1, 0, 1, 50),
                 position = guiCoord(0, 0, 0, -50),
@@ -281,7 +281,7 @@ return {
                 scrollbarAlpha = 1.0
             })
 
-        local tevs = teverse.construct("guiFrame", {
+        local tevs = core.construct("guiFrame", {
             parent = feed,
             size = guiCoord(1/3, -20, 0, 70),
             position = guiCoord(0, 10, 0, 0),
@@ -291,7 +291,7 @@ return {
             strokeAlpha = 0.05
         })
 
-        teverse.guiHelper
+        core.guiHelper
             .bind(tevs, "xs", {
                 size = guiCoord(1, -20, 0, 70),
                 position = guiCoord(0, 10, 0, 50)
@@ -305,7 +305,7 @@ return {
                 position = guiCoord(0, 10, 0, 0)
             })
 
-        local tevCoins = teverse.construct("guiTextBox", {
+        local tevCoins = core.construct("guiTextBox", {
             parent = tevs,
             size = guiCoord(0.5, 0, 0, 40),
             position = guiCoord(0.5, 0, 0.5, -15),
@@ -317,7 +317,7 @@ return {
             textFont = "tevurl:fonts/openSansBold.ttf"
         })
 
-        teverse.construct("guiTextBox", {
+        core.construct("guiTextBox", {
             parent = tevs,
             size = guiCoord(0.5, -10, 0, 18),
             position = guiCoord(0.5, 0, 0.5, -24),
@@ -329,7 +329,7 @@ return {
             textFont = "tevurl:fonts/openSansLight.ttf"
         })
 
-        teverse.construct("guiIcon", {
+        core.construct("guiIcon", {
             parent = tevs,
             size = guiCoord(0, 40, 0, 40),
             position = guiCoord(0.5, -60, 0.5, -20),
@@ -340,7 +340,7 @@ return {
             iconAlpha = 0.9
         })
 
-        local membership = teverse.construct("guiFrame", {
+        local membership = core.construct("guiFrame", {
             parent = feed,
             size = guiCoord(1/3, -20, 0, 70),
             position = guiCoord(1/3, 10, 0, 0),
@@ -350,7 +350,7 @@ return {
             strokeAlpha = 0.05
         })
 
-        teverse.guiHelper
+        core.guiHelper
             .bind(membership, "xs", {
                 size = guiCoord(1, -20, 0, 70),
                 position = guiCoord(0, 10, 0, 80 + 50)
@@ -364,7 +364,7 @@ return {
                 position = guiCoord(1/3, 10, 0, 0)
             })
 
-        teverse.construct("guiTextBox", {
+        core.construct("guiTextBox", {
             parent = membership,
             size = guiCoord(0.5, -5, 0, 18),
             position = guiCoord(0.5, 0, 0.5, -24),
@@ -376,7 +376,7 @@ return {
             textFont = "tevurl:fonts/openSansLight.ttf"
         })
 
-        local membershipText = teverse.construct("guiTextBox", {
+        local membershipText = core.construct("guiTextBox", {
             parent = membership,
             size = guiCoord(0.5, 0, 0, 40),
             position = guiCoord(0.5, 0, 0.5, -15),
@@ -387,7 +387,7 @@ return {
             textFont = "tevurl:fonts/openSansBold.ttf"
         })
 
-        local membertype = teverse.networking.localClient.membership
+        local membertype = core.networking.localClient.membership
         if membertype == "Plus" then
             membershipText.text = "Plus"
         elseif membertype == "Pro" then
@@ -396,7 +396,7 @@ return {
             membershipText.text = "Free"
         end
 
-        teverse.construct("guiIcon", {
+        core.construct("guiIcon", {
             parent = membership,
             size = guiCoord(0, 40, 0, 40),
             position = guiCoord(0.5, -60, 0.5, -20),
@@ -407,7 +407,7 @@ return {
             iconAlpha = 0.9
         })
 
-        local version = teverse.construct("guiFrame", {
+        local version = core.construct("guiFrame", {
             parent = feed,
             size = guiCoord(1/3, -20, 0, 70),
             position = guiCoord(2/3, 10, 0, 0),
@@ -417,7 +417,7 @@ return {
             strokeAlpha = 0.05
         })
 
-        teverse.guiHelper
+        core.guiHelper
             .bind(version, "xs", {
                 size = guiCoord(1, -20, 0, 70),
                 position = guiCoord(0, 10, 0, 160 + 50)
@@ -431,7 +431,7 @@ return {
                 position = guiCoord(2/3, 10, 0, 0)
             })
 
-        teverse.construct("guiTextBox", {
+        core.construct("guiTextBox", {
             parent = version,
             size = guiCoord(0.5, -5, 0, 18),
             position = guiCoord(0.5, 0, 0.5, -24),
@@ -443,7 +443,7 @@ return {
             textFont = "tevurl:fonts/openSansLight.ttf"
         })
 
-        teverse.construct("guiTextBox", {
+        core.construct("guiTextBox", {
             parent = version,
             size = guiCoord(0.5, 0, 0, 40),
             position = guiCoord(0.5, 0, 0.5, -15),
@@ -455,7 +455,7 @@ return {
             textFont = "tevurl:fonts/openSansBold.ttf"
         })
 
-        teverse.construct("guiIcon", {
+        core.construct("guiIcon", {
             parent = version,
             size = guiCoord(0, 40, 0, 40),
             position = guiCoord(0.5, -60, 0.5, -20),
@@ -466,21 +466,21 @@ return {
             iconAlpha = 0.9
         })
 
-        teverse.http:get("https://teverse.com/api/users/me/tevs", {
-            ["Authorization"] = "BEARER " .. teverse.userToken
+        core.http:get("https://teverse.com/api/users/me/tevs", {
+            ["Authorization"] = "BEARER " .. core.userToken
         }, function(code, body)
             if code == 200 then
                 tevCoins.text = body
             end
         end)
 
-        local feedItems = teverse.construct("guiFrame", {
+        local feedItems = core.construct("guiFrame", {
             parent = feed,
             backgroundAlpha = 0,
             clip = false
         })
 
-        teverse.guiHelper
+        core.guiHelper
             .bind(feedItems, "xs", {
                 size = guiCoord(1, -20, 1, -(240 + 50)),
                 position = guiCoord(0, 10, 0, 240 + 50)
@@ -494,7 +494,7 @@ return {
                 position = guiCoord(0, 10, 0, 80)
             })
 
-        local input = teverse.construct("guiTextBox", {
+        local input = core.construct("guiTextBox", {
             parent = feedItems,
             size = guiCoord(1, -2, 0, 30),
             position = guiCoord(0, 1, 0, 10),
@@ -510,12 +510,12 @@ return {
 
         local function refresh()
             lastRefresh = os.clock()
-            teverse.http:get("https://teverse.com/api/feed", {
-                ["Authorization"] = "BEARER " .. teverse.userToken
+            core.http:get("https://teverse.com/api/feed", {
+                ["Authorization"] = "BEARER " .. core.userToken
             }, function(code, body)
                 if code == 200 then
                     lastRefresh = os.clock()
-                    local data = teverse.json:decode(body)
+                    local data = core.json:decode(body)
                     if #data > 0 then
                         if data[1].id == newestFeed then
                             -- no change from last refresh
@@ -554,9 +554,9 @@ return {
                 submitting = true
                 input.textEditable = false
                 input.textAlpha = 0.5
-                local payload = teverse.json:encode({ message = input.text }) 
-                teverse.http:post("https://teverse.com/api/feed", payload, {
-                    ["Authorization"] = "BEARER " .. teverse.userToken,
+                local payload = core.json:encode({ message = input.text }) 
+                core.http:post("https://teverse.com/api/feed", payload, {
+                    ["Authorization"] = "BEARER " .. core.userToken,
                     ["Content-Type"] = "application/json"
                 }, function(code, body)
                     refresh()

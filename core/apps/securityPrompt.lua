@@ -3,8 +3,8 @@ return function(blacklisted, cancel, allow)
     -- invoke cancel to return teverse to a safe state
     -- invoke allow to run the untrusted code
 
-    local backdrop = teverse.construct("guiFrame", {
-        parent = teverse.coreInterface,
+    local backdrop = core.construct("guiFrame", {
+        parent = core.coreInterface,
         size = guiCoord(1, 0, 1, 0),
         position = guiCoord(0, 0, 0, 0),
         zIndex = 2000,
@@ -12,7 +12,7 @@ return function(blacklisted, cancel, allow)
         backgroundAlpha = 0.85
     })
 
-    local container = teverse.construct("guiFrame", {
+    local container = core.construct("guiFrame", {
         parent = backdrop,
         size = guiCoord(0, 280, 0, 100),
         position = guiCoord(0.5, -140, 0.5, -50),
@@ -22,7 +22,7 @@ return function(blacklisted, cancel, allow)
         strokeAlpha = 0.1
     })
 
-    local label = teverse.construct("guiTextBox", {
+    local label = core.construct("guiTextBox", {
         parent = container,
         size = guiCoord(1, -20, 1, -50),
         position = guiCoord(0, 10, 0, 10),
@@ -33,7 +33,7 @@ return function(blacklisted, cancel, allow)
     })
 
     if not blacklisted then
-        local allowBtn = teverse.construct("guiTextBox", {
+        local allowBtn = core.construct("guiTextBox", {
             parent = container,
             size = guiCoord(0.5, -5, 0, 30),
             position = guiCoord(0, 0, 1, -30),
@@ -46,7 +46,7 @@ return function(blacklisted, cancel, allow)
         allowBtn:on("mouseLeftUp", allow)
     end
 
-    local cancelBtn = teverse.construct("guiTextBox", {
+    local cancelBtn = core.construct("guiTextBox", {
         parent = container,
         size = guiCoord(0.5, -5, 0, 30),
         position = guiCoord(0.5, 5, 1, -30),

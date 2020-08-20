@@ -3,13 +3,13 @@ local downloadScale = 1024 * 5
 local uploadScale = 1024 * 5
 
 return function()
-    local main = teverse.construct("guiFrame", {
+    local main = core.construct("guiFrame", {
         size = guiCoord(0, 250, 0, 200),
         position = guiCoord(1, -250, 1, -260),
         strokeAlpha = 0.5
     })
 
-    local container = teverse.construct("guiFrame", {
+    local container = core.construct("guiFrame", {
         parent = main,
         size = guiCoord(1, 0, 1, -100),
         position = guiCoord(0, 0, 0, 0),
@@ -17,7 +17,7 @@ return function()
     })
 
     if _TEV_VERSION_MINOR == 24 and _TEV_VERSION_PATCH < 3 then
-        teverse.construct("guiTextBox", {
+        core.construct("guiTextBox", {
             parent = container,
             size = guiCoord(0.8, 0, 0.8, 0),
             position = guiCoord(0.1, 0, 0.1, 0),
@@ -32,7 +32,7 @@ return function()
         return main
     end
 
-    local pingContainer = teverse.construct("guiFrame", {
+    local pingContainer = core.construct("guiFrame", {
         parent = container,
         size = guiCoord(1, -40, 1, -10),
         position = guiCoord(0, 0, 0, 5),
@@ -40,7 +40,7 @@ return function()
         clip = true
     })
 
-    local pingLabel = teverse.construct("guiTextBox", {
+    local pingLabel = core.construct("guiTextBox", {
         parent = container,
         size = guiCoord(0, 32, 0, 12),
         backgroundAlpha = 0,
@@ -49,7 +49,7 @@ return function()
         textSize = 12
     })
 
-    local receivedContainer = teverse.construct("guiFrame", {
+    local receivedContainer = core.construct("guiFrame", {
         parent = container,
         size = guiCoord(1, -50, 1, -10),
         position = guiCoord(0, 0, 0, 5),
@@ -57,7 +57,7 @@ return function()
         clip = true
     })
 
-    local receivedLabel = teverse.construct("guiTextBox", {
+    local receivedLabel = core.construct("guiTextBox", {
         parent = container,
         size = guiCoord(0, 45, 0, 12),
         backgroundAlpha = 0,
@@ -66,7 +66,7 @@ return function()
         textSize = 12
     })
 
-    local sentContainer = teverse.construct("guiFrame", {
+    local sentContainer = core.construct("guiFrame", {
         parent = container,
         size = guiCoord(1, -50, 1, -10),
         position = guiCoord(0, 0, 0, 5),
@@ -74,7 +74,7 @@ return function()
         clip = true
     })
 
-    local sentLabel = teverse.construct("guiTextBox", {
+    local sentLabel = core.construct("guiTextBox", {
         parent = container,
         size = guiCoord(0, 45, 0, 12),
         backgroundAlpha = 0,
@@ -83,7 +83,7 @@ return function()
         textSize = 12
     })
     
-    local statOutput = teverse.construct("guiTextBox", {
+    local statOutput = core.construct("guiTextBox", {
         parent = main,
         size = guiCoord(1, -10, 0, 100),
         position = guiCoord(0, 5, 1, -95),
@@ -103,12 +103,12 @@ return function()
 
         -- Needs reworked
         while sleep(0.5) do
-            local stats = teverse.networking:getStats()
+            local stats = core.networking:getStats()
 
             pingLabel.text = stats.lastPing .. "ms"
             pingLabel.position = guiCoord(1.0, -35, math.min(1 - (stats.lastPing / pingScale), 1), -13)
 
-            local newLine = teverse.construct("guiLine", {
+            local newLine = core.construct("guiLine", {
                 parent = pingContainer,
                 pointA = guiCoord(1.0, 0, 1 - (lastPing / pingScale), -1),
                 pointB = guiCoord(1.1, 0, 1 - (stats.lastPing / pingScale), -1),
@@ -118,7 +118,7 @@ return function()
 
             local pingChildren = pingContainer.children
             for i,v in pairs(pingChildren) do
-                teverse.tween:begin(v, 0.5, {
+                core.tween:begin(v, 0.5, {
                     pointA = v.pointA - guiCoord(0.1, 0, 0, 0),
                     pointB = v.pointB - guiCoord(0.1, 0, 0, 0)
                 }, "linear")
@@ -130,7 +130,7 @@ return function()
             receivedLabel.text = string.format("%.2f kb-i", stats.lastSecondMessageBytesReceived/1024)
             receivedLabel.position = guiCoord(1.0, -50, math.min(1 - (stats.lastSecondMessageBytesReceived / downloadScale), 1), -13)
 
-            local newLine = teverse.construct("guiLine", {
+            local newLine = core.construct("guiLine", {
                 parent = receivedContainer,
                 pointA = guiCoord(1.0, 0, 1 - (lastReceive / downloadScale), -1),
                 pointB = guiCoord(1.1, 0, 1 - (stats.lastSecondMessageBytesReceived / downloadScale), -1),
@@ -140,7 +140,7 @@ return function()
 
             local receivedChildren = receivedContainer.children
             for i,v in pairs(receivedChildren) do
-                teverse.tween:begin(v, 0.5, {
+                core.tween:begin(v, 0.5, {
                     pointA = v.pointA - guiCoord(0.1, 0, 0, 0),
                     pointB = v.pointB - guiCoord(0.1, 0, 0, 0)
                 }, "linear")
@@ -152,7 +152,7 @@ return function()
             sentLabel.text = string.format("%.2f kb-o", stats.lastSecondMessageBytesSent/1024)
             sentLabel.position = guiCoord(1.0, -50, math.min(1 - (stats.lastSecondMessageBytesSent / downloadScale), 1), -13)
 
-            local newLine = teverse.construct("guiLine", {
+            local newLine = core.construct("guiLine", {
                 parent = sentContainer,
                 pointA = guiCoord(1.0, 0, 1 - (lastSend / downloadScale), -1),
                 pointB = guiCoord(1.1, 0, 1 - (stats.lastSecondMessageBytesSent / downloadScale), -1),
@@ -162,7 +162,7 @@ return function()
 
             local sentChildren = sentContainer.children
             for i,v in pairs(sentChildren) do
-                teverse.tween:begin(v, 0.5, {
+                core.tween:begin(v, 0.5, {
                     pointA = v.pointA - guiCoord(0.1, 0, 0, 0),
                     pointB = v.pointB - guiCoord(0.1, 0, 0, 0)
                 }, "linear")

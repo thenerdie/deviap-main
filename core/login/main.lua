@@ -1,11 +1,11 @@
-local main = teverse.construct("guiFrame", {
-    parent = teverse.interface,
+local main = core.construct("guiFrame", {
+    parent = core.interface,
     backgroundColour = colour.rgb(52, 58, 64),
     size = guiCoord(1, 0, 1, 100),
     position = guiCoord(0, 0, 0, -50)
 })
 
-teverse.construct("guiImage", {
+core.construct("guiImage", {
     position = guiCoord(0.5, -1500, 0.5, -750),
     size = guiCoord(0, 3000, 0, 1500),
     parent = main,
@@ -17,7 +17,7 @@ teverse.construct("guiImage", {
     zIndex = -1
 })
 
-local gui = teverse.construct("guiTextBox", {
+local gui = core.construct("guiTextBox", {
     parent = main,
     size = guiCoord(0.8, 0, 0, 70),
     position = guiCoord(0.1, 0, 0.5, -35),
@@ -30,7 +30,7 @@ local gui = teverse.construct("guiTextBox", {
     textFont = "tevurl:fonts/moskUltraBold.ttf"
 })
 
-local login = teverse.construct("guiTextBox", {
+local login = core.construct("guiTextBox", {
     parent = main,
     size = guiCoord(0, 80, 0, 26),
     position = guiCoord(0.5, -40, 0.5, 45),
@@ -51,9 +51,9 @@ local listenerid = login:on("mouseLeftDown", function()
     if db then return end
 
     if _DEVICE:sub(0, 6) == "iPhone" or _DEVICE:sub(0, 4) == "iPad" then
-        teverse.openUrl("https://teverse.com/dashboard?client=2")
+        core.openUrl("https://teverse.com/dashboard?client=2")
     else
-        teverse.openUrl("https://teverse.com/dashboard?client=1")
+        core.openUrl("https://teverse.com/dashboard?client=1")
     end
 
     login.visible = false
@@ -61,7 +61,7 @@ local listenerid = login:on("mouseLeftDown", function()
     login.visible = true
 end)
 
-teverse.networking:on("_localAuthenticating", function(state)
+core.networking:on("_localAuthenticating", function(state)
     if state ~= "failed" then
         db = true
         login.text = "Authenticating..."
@@ -78,9 +78,9 @@ end)
 sleep(1)
 login.visible = true
 
-while teverse.networking.localClient == nil do
+while core.networking.localClient == nil do
     sleep(1.5)
 end
 
-print("Logged in as " .. teverse.networking.localClient.name)
+print("Logged in as " .. core.networking.localClient.name)
 main:destroy()

@@ -1,7 +1,7 @@
 -- Copyright 2020- Teverse
 -- This script is responsible for parsing and storing commands
 
-local globals = require("tevgit:workshop/library/globals.lua") -- globals; variables or instances that can be shared between files
+local globals = require("devgit:workshop/library/globals.lua") -- globals; variables or instances that can be shared between files
 
 return {
     createGroup = function(id)

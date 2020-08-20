@@ -1,9 +1,9 @@
 -- Copyright 2020- Teverse
 -- This script constructs (or builds) the topbar controller
 
-local globals = require("tevgit:workshop/library/globals.lua") -- globals; variables or instances that can be shared between files
-local toolTip = require("tevgit:workshop/library/ui/components/toolTip.lua") -- UI component
-local commands = require("tevgit:workshop/library/toolchain/commands.lua") -- Commandbar toolchain component
+local globals = require("devgit:workshop/library/globals.lua") -- globals; variables or instances that can be shared between files
+local toolTip = require("devgit:workshop/library/ui/components/toolTip.lua") -- UI component
+local commands = require("devgit:workshop/library/toolchain/commands.lua") -- Commandbar toolchain component
 
 -- Core Command Groups
 local show_commandGroup = commands.createGroup("Show")
@@ -38,11 +38,11 @@ return {
         local currentPage = nil
 
         self.animate = function(page, pos)
-            teverse.tween:begin(page, 0.5, { position = pos }, "inOutQuad")
+            core.tween:begin(page, 0.5, { position = pos }, "inOutQuad")
         end
 
-        local container = teverse.construct("guiFrame", {
-            parent = teverse.interface,
+        local container = core.construct("guiFrame", {
+            parent = core.interface,
             name = idValue,
             size = guiCoord(1, 0, 0, 40),
             position = guiCoord(0, 0, 0, 0),
@@ -54,7 +54,7 @@ return {
             zIndex = 200
         })
 
-        local subContainer = teverse.construct("guiFrame", {
+        local subContainer = core.construct("guiFrame", {
             parent = container,
             size = guiCoord(0, 140, 0.8, 0),
             position = guiCoord(0, 8, 0, 4),
@@ -64,7 +64,7 @@ return {
             zIndex = 900
         })
 
-        local menuContainer = teverse.construct("guiFrame", {
+        local menuContainer = core.construct("guiFrame", {
             parent = container,
             size = guiCoord(0, 140, 2.2, 0),
             position = guiCoord(0, 8, 0, 35),
@@ -74,7 +74,7 @@ return {
             zIndex = 900
         })
 
-        local headerIcon = teverse.construct("guiIcon", {
+        local headerIcon = core.construct("guiIcon", {
             parent = subContainer,
             size = guiCoord(0, 32, 0, 32),
             position = guiCoord(0, 0, 0, 0),
@@ -97,7 +97,7 @@ return {
             clicked = (not clicked)
         end)
         
-        local headerText = teverse.construct("guiTextBox", {
+        local headerText = core.construct("guiTextBox", {
             parent = subContainer,
             size = guiCoord(1, 0, 0, 32),
             position = guiCoord(0, 40, 0, 0),
@@ -111,7 +111,7 @@ return {
             strokeRadius = 3
         })
 
-        local commandBarIcon = teverse.construct("guiIcon", {
+        local commandBarIcon = core.construct("guiIcon", {
             parent = container,
             size = guiCoord(0, 32, 0, 32),
             position = guiCoord(0, 160, 0, 4),
@@ -125,7 +125,7 @@ return {
             strokeRadius = 3,
         })
 
-        local commandBarField = teverse.construct("guiTextBox", {
+        local commandBarField = core.construct("guiTextBox", {
             parent = container,
             size = guiCoord(0, 200, 0, 32),
             position = guiCoord(0, 191, 0, 4),
@@ -168,7 +168,7 @@ return {
         end)
 
         self.registerIcon = function(icon, callback)
-            local icon = teverse.construct("guiIcon", {
+            local icon = core.construct("guiIcon", {
                 parent = container,
                 size = guiCoord(0, 32, 0, 32),
                 position = guiCoord(1, (count*-37)-37, 0, 4),
