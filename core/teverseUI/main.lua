@@ -29,7 +29,7 @@ end
 local debug = false
 core.input:on("keyUp", function(key)
     if key == "KEY_F1" and not core.dev.localDevGit and core.input:isKeyDown("KEY_LSHIFT") then
-        core.dev:promptdevgit()
+        core.dev:promptDevGit()
     elseif key == "KEY_F2" and core.input:isKeyDown("KEY_LSHIFT") then
         print("Reload")
         core.dev:reloadAllShaders()
