@@ -1,6 +1,6 @@
 name: Loadstring
 
-# this could be modified to be more helpful when there's a headless teverse client
+# this could be modified to be more helpful when there's a headless Deviap client
 on:
   push:
     branches: [ master, development ]
