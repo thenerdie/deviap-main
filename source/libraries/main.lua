@@ -5,5 +5,5 @@ local libsLocations =
 }
 
 return function(libName)
-	return require(libName:gsub("^", "tevgit:source/libraries/"))
+	return require(libsLocations[libName]:gsub("^", "tevgit:source/libraries/"))
 end
