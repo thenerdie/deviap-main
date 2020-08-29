@@ -1,7 +1,7 @@
 local libsLocations =
 {
 	--libName = "./..."
-	UI = "UI/main.lua"
+	UI = "./UI/main.lua"
 }
 
 return function(libName)
