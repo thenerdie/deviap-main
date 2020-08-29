@@ -78,7 +78,7 @@ sleep(1)
 
 
 -- If Tevgit is overridden
-if not core.dev.localTevGit then
+if core.dev.localTevGit then
 
     core.construct("guiTextBox", {
         parent = Container,
@@ -110,7 +110,7 @@ if not core.dev.localTevGit then
 end
 
 -- If barebones application
-if core.dev.localTevGit then
+if not core.dev.localTevGit then
     
     local infoLabel = core.construct("guiTextBox", {
         parent = Container,
