@@ -3,6 +3,17 @@
 
 -- PROVIDES A SINGLETON CLASS TO CREATE ENUMS, AND RESOLVE THOSE ENUMS
 
+function string.split (inputstr, sep)
+    if sep == nil then
+            sep = "%s"
+    end
+    local t={}
+    for str in string.gmatch(inputstr, "([^" .. sep .. "]+)") do
+            table.insert(t, str)
+    end
+    return t
+end
+
 local lastValue = 0
 
 local enumerable = {}
@@ -34,9 +45,9 @@ end
 function enumerable:resolveValue(value)
     local t = type(value)
     local ret = nil
-    recursiveIterate(value, function(index, obj)
+    recursiveIterate(self.tree, function(index, obj)
         if (t == "string") and (index == value) or (obj == value) then
-            ret = (t == "string") and index or obj
+            ret = (t == "string") and obj or index
         end
     end)
     return ret
