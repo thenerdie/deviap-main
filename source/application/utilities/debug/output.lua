@@ -15,7 +15,7 @@ local Container = core.construct("guiFrame", {
     strokeColour = colour(0.75, 0.75, 0.75),
     strokeAlpha = 1,
     strokeRadius = 2,
-    visible = true,
+    visible = false,
     zIndex = 200
 })
 
